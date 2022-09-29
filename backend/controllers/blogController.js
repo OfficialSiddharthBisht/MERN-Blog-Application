@@ -17,3 +17,23 @@ exports.getAllBlogs = async(req ,res) =>{
         blogs
     })
 }
+
+// Update Exhisting Blog
+exports.updateBlog = async(req ,res ,next) =>{
+    let blog = await Blog.findById(req.params.id);
+    if(!blog){
+        return res.status(500).json({
+            success :false,
+            message : "Blog not found"
+        })
+    }
+    blog = await Blog.findByIdAndUpdate(req.params.id,req.body,{
+      new : true,
+      runValidators : true,
+      useFindAndModify : false,  
+    });
+    res.status(200).json({
+        success :true,
+        blog
+    })
+}
