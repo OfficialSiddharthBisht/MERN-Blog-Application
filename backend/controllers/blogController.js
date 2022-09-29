@@ -9,3 +9,11 @@ exports.createBlog = async(req ,res ,next) =>{
     });
 };
 
+// Get all blogs 
+exports.getAllBlogs = async(req ,res) =>{
+    const blogs = await Blog.find();
+    res.status(200).json({
+        success : true,
+        blogs
+    })
+}
